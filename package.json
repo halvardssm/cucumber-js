@@ -179,26 +179,26 @@
     "url": "https://github.com/cucumber/cucumber-js/issues"
   },
   "directories": {
-    "lib": "./lib"
+    "lib": "./dist"
   },
   "main": "./lib/index.js",
   "exports": {
     ".": {
-      "import": "./lib/wrapper.mjs",
-      "require": "./lib/index.js",
-      "types": "./lib/index.d.ts"
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/esm/index.d.ts"
     },
     "./api": {
-      "import": "./lib/api/wrapper.mjs",
-      "require": "./lib/api/index.js",
-      "types": "./lib/api/index.d.ts"
+      "import": "./dist/esm/api/index.js",
+      "require": "./dist/cjs/api/index.js",
+      "types": "./dist/esm/api/index.d.ts"
     },
     "./lib/*": {
-      "require": "./lib/*.js"
+      "require": "./dist/cjs/*.js"
     },
     "./package.json": "./package.json"
   },
-  "types": "./lib/index.d.ts",
+  "types": "./dist/esm/index.d.ts",
   "engines": {
     "node": "14 || 16 || >=18"
   },
@@ -308,7 +308,7 @@
     "ansi-regex": "^5.0.1"
   },
   "scripts": {
-    "build-local": "genversion --es6 src/version.ts && tsc --build tsconfig.node.json && shx cp src/importer.js lib/ && shx cp src/wrapper.mjs lib/ && shx cp src/api/wrapper.mjs lib/api/",
+    "build-local": "genversion --es6 src/version.ts && tsc --build tsconfig.cjs.json && tsc --build tsconfig.mjs.json && shx cp src/importer.js lib/ && shx cp src/wrapper.mjs lib/ && shx cp src/api/wrapper.mjs lib/api/",
     "cck-test": "mocha 'compatibility/**/*_spec.ts'",
     "docs:ci": "api-extractor run --verbose",
     "docs:local": "api-extractor run --verbose --local && api-documenter markdown --input-folder ./tmp/api-extractor --output-folder ./docs/api",
@@ -339,6 +339,6 @@
   "files": [
     "api/",
     "bin/",
-    "lib/"
+    "dist/"
   ]
 }
